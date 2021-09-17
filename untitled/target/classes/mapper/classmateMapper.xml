@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lidy.dao.ClassmateDao">
+    <!--检索全部内容-->
+    <select id="query" resultType="lidy.model.Classmate">
+        select * from classmates;
+    </select>
+
+    <!--插入记录-->
+    <insert id="insert" parameterType="hashmap" >
+        insert into classmates values (#{id},#{name},#{sex},#{age});
+    </insert>
+
+    <!--根据id号删除记录-->
+    <delete id="delete" parameterType="hashmap" >
+        delete from classmates where id = #{id};
+    </delete>
+
+    <!--根据id号更新记录中的名字-->
+    <update id="update" parameterType="hashmap" >
+        update classmates set name = #{name} where id = #{id};
+    </update>
+
+    <select id="select" parameterType="hashmap" resultType="lidy.model.Classmate">
+        select * from classmates where name in
+    <foreach collection="name" item = "list" index = "index" open = "(" close = ")" separator=",">
+        ${list}
+    </foreach>
+    </select>
+
+</mapper>
